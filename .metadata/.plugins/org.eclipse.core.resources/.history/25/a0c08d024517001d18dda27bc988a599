@@ -1,0 +1,20 @@
+package com.movie.portal.booking;
+
+import java.sql.Time;
+
+public class BookingConfirmationDTO {
+	
+	
+	private String movieName;
+	private String theaterName; 
+	private String screenName; 
+	private String ScreenLocation; 
+	private String language; 
+	private String technology; 
+	private Time startTime; 
+	
+	
+	
+	
+
+}

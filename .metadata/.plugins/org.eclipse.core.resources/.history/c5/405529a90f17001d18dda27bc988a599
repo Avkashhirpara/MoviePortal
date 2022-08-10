@@ -1,0 +1,50 @@
+package com.movie.portal.entity.mapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+import com.movie.portal.entity.Show;
+import com.movie.portal.entity.ShowSearchDTO;
+
+public class ShowSearchMapper implements RowMapper<ShowSearchDTO> {
+
+	@Override
+	public ShowSearchDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
+		
+		
+		
+				
+				
+//				+ "	 screen.screen_location screenlocation,"
+//				+ "	 s.booked_seats,"
+//				+ "	 p.location, "
+//				+ "	 p.city,"
+//				+ "	 s.id showId,"
+//				+ "	 screen.id screenId,"
+//				+ "	 p.id PartnerId";
+		
+		ShowSearchDTO showSearchRs = new ShowSearchDTO();
+		showSearchRs.setShowId(rs.getInt("id"));
+		showSearchRs.setScreenId(rs.getInt("id"));
+		showSearchRs.setPartnerId(rs.getInt("id"));
+		
+		
+		showSearchRs.setName(rs.getString("name"));
+		showSearchRs.setDescription(rs.getString("description"));
+		showSearchRs.setLanguage(rs.getString("language"));
+		showSearchRs.setTechnology(rs.getString("technology"));
+		showSearchRs.setTheater(rs.getString("theater"));
+		showSearchRs.setScreenlocation(rs.getString("screenlocation"));
+		showSearchRs.setStart_time(rs.getTime("start_time"));
+		showSearchRs.setBooked_seats(rs.getInt("booked_seats"));
+		showSearchRs.setLocation(rs.getString("location"));
+		showSearchRs.setCity(rs.getString("city"));
+		
+			
+		return showSearchRs;
+		}
+
+}

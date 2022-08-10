@@ -1,0 +1,5 @@
+package com.movie.portal.booking;
+
+public class BookingRepository {
+
+}

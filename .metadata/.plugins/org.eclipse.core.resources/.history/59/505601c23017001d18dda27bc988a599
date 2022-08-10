@@ -1,0 +1,35 @@
+package com.movie.portal.booking;
+
+import org.springframework.stereotype.Service;
+
+import com.movie.portal.entity.Booking;
+
+@Service
+public class BookingService {
+
+	
+	BookingRepository bookingRepository;
+
+	public void setBookingRepository(BookingRepository bookingRepository) {
+		this.bookingRepository = bookingRepository;
+	} 
+	
+	
+	public BookingConfirmationDTO reserverBooking (BookingDTO booking) {
+		
+		Booking bEntity = new Booking();
+		bEntity.setUid(booking.getUid());
+		bEntity.setUid(booking.getShowId());
+		bEntity.setTotalSeat(booking.getSeats().size());
+		
+		Long l  = bookingRepository.insertBooking(bEntity);
+		
+		booking.getSeats().stream().forEach(seat -> {
+			System.out.println(seat);
+		});
+		
+		return null;
+	}
+	
+	
+}

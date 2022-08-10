@@ -1,0 +1,73 @@
+package com.movie.portal.show;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Repository;
+
+
+import com.movie.portal.entity.Show;
+import com.movie.portal.entity.ShowSearchDTO;
+import com.movie.portal.entity.mapper.ShowMapper;
+import com.movie.portal.entity.mapper.ShowSearchMapper;
+
+@Repository
+public class ShowRepository {
+	
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+	public List<Show> getAllShow() {
+		
+		
+		String sql = "SELECT * FROM movieportal.show";
+		List<Show> shows = null;
+		try {
+			shows = jdbcTemplate.query(sql, new ShowMapper());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return shows;
+	}
+	
+	
+	public List<ShowSearchDTO> searchShowByName(String showName) {
+		
+		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("name", showName);
+
+		String sql = "	SELECT "
+				+ "	 s.name,"
+				+ "	 s.description,"
+				+ "	 s.language,"
+				+ "	 s.technology,"
+				+ "	 s.start_time,"
+				+ "	 p.name theater, "
+				+ "	 screen.screen_location screenlocation,"
+				+ "	 s.booked_seats,"
+				+ "	 p.location, "
+				+ "	 p.city,"
+				+ "	 s.id showId,"
+				+ "	 screen.id screenId,"
+				+ "	 p.id PartnerId"
+				+ "	FROM movieportal.show s inner join screen on s.screen_id = screen.id inner join partner p on p.id = screen.pid"
+				+ "	where name like '%:name%'";
+		List<ShowSearchDTO> shows = null;
+		try {
+			shows = namedParameterJdbcTemplate.query(sql,namedParameters, new ShowSearchMapper());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return shows;
+	}
+	
+	
+
+}

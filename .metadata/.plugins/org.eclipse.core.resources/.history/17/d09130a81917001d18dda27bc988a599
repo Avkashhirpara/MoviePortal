@@ -1,0 +1,31 @@
+package com.movie.portal.show;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.movie.portal.entity.Show;
+import com.movie.portal.entity.ShowSearchDTO;
+
+@Service
+public class ShowService {
+
+	@Autowired
+	ShowRepository showRepository; 
+
+	public List<Show> getAllShow() {
+
+		return showRepository.getAllShow();
+	}
+	
+	public List<ShowSearchDTO> searchShowByName(String showName) {
+
+		return showRepository.searchShowByName(showName);
+	}
+
+	public Show save(Show show) {
+		return null;
+	}
+
+}

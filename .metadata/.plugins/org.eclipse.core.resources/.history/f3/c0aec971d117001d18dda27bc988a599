@@ -1,0 +1,10 @@
+global com.movie.portal.entity.Booking booking;
+dialect  "mvel"
+
+rule "Calculate discount on afternoon show"
+    when
+        showInstance:Show(getStartTime().getHours() >= 15);
+    then
+      	booking.setTotalDiscount(500);
+       	
+end

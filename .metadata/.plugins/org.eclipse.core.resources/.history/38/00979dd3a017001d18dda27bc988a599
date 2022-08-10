@@ -1,0 +1,8 @@
+package com.movie.portal.constant;
+
+public class PaymentStatus {
+	
+	public static final long PENDING = 1;
+	public static final long BLOCK = 1;
+
+}

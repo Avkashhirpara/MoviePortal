@@ -1,0 +1,67 @@
+package com.movie.portal.entity;
+
+
+public class ShowRates {
+
+  private long id;
+  private long showId;
+  private long sectionId;
+  private double price;
+  private java.sql.Timestamp createdDate;
+  private long createdBy;
+
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+
+  public long getShowId() {
+    return showId;
+  }
+
+  public void setShowId(long showId) {
+    this.showId = showId;
+  }
+
+
+  public long getSectionId() {
+    return sectionId;
+  }
+
+  public void setSectionId(long sectionId) {
+    this.sectionId = sectionId;
+  }
+
+
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+
+  public java.sql.Timestamp getCreatedDate() {
+    return createdDate;
+  }
+
+  public void setCreatedDate(java.sql.Timestamp createdDate) {
+    this.createdDate = createdDate;
+  }
+
+
+  public long getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(long createdBy) {
+    this.createdBy = createdBy;
+  }
+
+}

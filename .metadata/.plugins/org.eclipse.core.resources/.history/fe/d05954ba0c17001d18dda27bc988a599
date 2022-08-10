@@ -1,0 +1,21 @@
+package com.movie.portal.entity;
+
+public class MovieSearchDTO {
+	
+	  private long id;
+	  private long screenId;
+	  private String name;
+	  private String description;
+	  private String language;
+	  private String technology;
+	  private java.sql.Date fromDate;
+	  private java.sql.Date toDate;
+	  private java.sql.Time startTime;
+	  private java.sql.Time endTime;
+	  private long status;
+	  private String pname;
+	  private long docid;
+	  private String city;
+	  private String location;
+
+}

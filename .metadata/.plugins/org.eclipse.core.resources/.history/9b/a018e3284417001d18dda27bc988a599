@@ -1,0 +1,19 @@
+package com.movie.portal.booking;
+
+public class BookingConfirmationDTO {
+	
+	
+	private long showid;
+
+	public long getShowid() {
+		return showid;
+	}
+
+	public void setShowid(long showid) {
+		this.showid = showid;
+	}
+	
+	
+	
+
+}

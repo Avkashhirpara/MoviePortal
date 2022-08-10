@@ -1,0 +1,5 @@
+package com.movie.portal.entity.mapper;
+
+public class ShowSearchMapper {
+
+}

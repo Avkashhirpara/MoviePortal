@@ -1,0 +1,25 @@
+package com.movie.portal.show;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.movie.portal.entity.Show;
+
+
+@Service
+public class ShowService {
+	
+	
+	public List<Show> getAllShow(){
+		return null; 
+	}
+	
+	public Show save (Show show) {
+		return null;
+	}
+	
+	
+	
+
+}

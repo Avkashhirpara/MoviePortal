@@ -1,0 +1,95 @@
+package com.movie.portal.booking;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.movie.portal.entity.Booking;
+
+@RestController
+@RequestMapping("/movieportal/v1/")
+public class BookingController {
+	
+	
+//	
+//	 {
+//	
+//		 "uid": 1,
+//		 "showId": 1,
+//		 "seats": [1,2,3,11,12,17,18]
+//	}
+	 
+	 // waiting for payment 
+	 // declined 
+	 // booked
+	
+	 // work flow 
+	 /// get seat details. 
+	 // reserver and send confimation with seat show details and wait for payment
+	 // payment and booking id done 
+	 // confirm booking. 
+	 
+	 
+	 
+	/**
+	 * data needed
+	 * 
+	 *  partner id 
+	 *  show id 
+	 *  seats - 
+	 *  uid 
+	 *  rule engine implementation in last
+	 *  first take the booking.
+	 *  
+	 *   
+	 * 
+select st.row_number,st.seat_number,sn.screen_name,sn.screen_location,s.name,s.language,s.technology,s.start_time,sr.price,sec.name
+from seat st 
+inner join section sec on sec.id = st.section_id
+inner join screen sn on sn.id =st.screen_id 
+inner join movieportal.show s on s.screen_id = sn.id 
+inner join show_rates sr on sr.section_id = st.section_id
+where 
+st.screen_id = 1 and 
+st.id in (1,2,3,11,12,17,18)
+	 * 
+	 */
+	
+	
+	BookingService bookingService; 
+	
+	@Autowired
+	public void setBookingService(BookingService bookingService) {
+		this.bookingService = bookingService;
+	}
+
+
+	@PostMapping("/reserverSeats")
+	ResponseEntity<BookingConfirmationDTO> reserveBooking(@RequestBody BookingDTO booking) {
+		BookingConfirmationDTO  confirmation = bookingService.reserverBooking(booking);
+		return new ResponseEntity<>(confirmation, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/confirmBooking")
+	ResponseEntity<Booking> confirmBooking(@PathVariable long bookingId) {
+		Booking  confirmation = bookingService.confirmBooking(bookingId);
+		return new ResponseEntity<>(confirmation, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/cancelBooking")
+	ResponseEntity<Booking> cancelBooking(@PathVariable long bookingId) {
+		Booking  confirmation = bookingService.cancelBooking(bookingId);
+		return new ResponseEntity<>(confirmation, HttpStatus.CREATED);
+	}
+	
+	
+	
+	
+
+}

@@ -1,0 +1,21 @@
+package com.movie.portal.booking;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class BookingService {
+
+	
+	BookingRepository bookingRepository;
+
+	public void setBookingRepository(BookingRepository bookingRepository) {
+		this.bookingRepository = bookingRepository;
+	} 
+	
+	
+	public BookingConfirmationDTO reserverBooking (BookingDTO booking) {
+		return null;
+	}
+	
+	
+}

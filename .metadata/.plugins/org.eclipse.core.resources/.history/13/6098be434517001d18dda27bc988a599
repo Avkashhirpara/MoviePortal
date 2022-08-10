@@ -1,0 +1,45 @@
+package com.movie.portal.booking;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.movie.portal.constant.PaymentStatus;
+import com.movie.portal.entity.BookSeat;
+import com.movie.portal.entity.Booking;
+import com.movie.portal.entity.Seat;
+
+@Service
+public class BookingService {
+
+	
+	BookingRepository bookingRepository;
+
+	@Autowired
+	public void setBookingRepository(BookingRepository bookingRepository) {
+		this.bookingRepository = bookingRepository;
+	} 
+	
+	
+	public BookingConfirmationDTO reserverBooking (BookingDTO booking) {
+		
+		Booking bEntity = new Booking();
+		bEntity.setUid(booking.getUid());
+		bEntity.setShowid(booking.getShowId());
+		bEntity.setTotalSeat(booking.getSeats().size());
+		bEntity.setPaymentStatus(PaymentStatus.PENDING);
+		bEntity  = bookingRepository.insertBooking(bEntity);
+		double totalAmount = 0.0;
+		double totalDiscount = 0.0;
+		
+		for(int sid : booking.getSeats()) {
+			bookingRepository.saveSeat(new BookSeat(0,bEntity.getId(),sid));
+		}
+		
+		
+		
+		
+		return null;
+	}
+	
+	
+}

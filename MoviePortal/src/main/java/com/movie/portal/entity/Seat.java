@@ -1,0 +1,57 @@
+package com.movie.portal.entity;
+
+
+public class Seat {
+
+  private long id;
+  private long screenId;
+  private long sectionId;
+  private long rowNumber;
+  private long seatNumber;
+
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+
+  public long getScreenId() {
+    return screenId;
+  }
+
+  public void setScreenId(long screenId) {
+    this.screenId = screenId;
+  }
+
+
+  public long getSectionId() {
+    return sectionId;
+  }
+
+  public void setSectionId(long sectionId) {
+    this.sectionId = sectionId;
+  }
+
+
+  public long getRowNumber() {
+    return rowNumber;
+  }
+
+  public void setRowNumber(long rowNumber) {
+    this.rowNumber = rowNumber;
+  }
+
+
+  public long getSeatNumber() {
+    return seatNumber;
+  }
+
+  public void setSeatNumber(long seatNumber) {
+    this.seatNumber = seatNumber;
+  }
+
+}

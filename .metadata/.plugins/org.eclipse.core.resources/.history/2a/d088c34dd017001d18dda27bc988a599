@@ -1,0 +1,10 @@
+global com.movie.portal.entity.Booking booking;
+dialect  "mvel"
+
+rule "Calculate discount on afternoon show"
+    when
+        showInstance:Show(isNightSurcharge == false && distanceInMile < 10);
+    then
+      	booking.set(0);
+       	
+end

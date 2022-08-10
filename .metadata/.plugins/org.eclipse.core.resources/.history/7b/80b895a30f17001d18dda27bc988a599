@@ -1,0 +1,39 @@
+package com.movie.portal.entity.mapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+import com.movie.portal.entity.Show;
+import com.movie.portal.entity.ShowSearchDTO;
+
+public class ShowSearchMapper implements RowMapper<ShowSearchDTO> {
+
+	@Override
+	public ShowSearchDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
+		
+		ShowSearchDTO showSearchRs = new ShowSearchDTO();
+		showSearchRs.setShowId(rs.getInt("id"));
+		showSearchRs.setScreenId(rs.getInt("id"));
+		showSearchRs.setPartnerId(rs.getInt("id"));
+		
+		
+		showSearchRs.setName(rs.getString("name"));
+		showSearchRs.setDescription(rs.getString("description"));
+		showSearchRs.setLanguage(rs.getString("language"));
+		showSearchRs.setTechnology(rs.getString("technology"));
+		showSearchRs.setFromDate(rs.getDate("from_date"));
+		showSearchRs.setToDate(rs.getDate("to_date"));
+		showSearchRs.setStartTime(rs.getTime("start_time"));
+		showSearchRs.setEndTime(rs.getTime("end_time"));
+		showSearchRs.setStatus(rs.getInt("status"));
+		showSearchRs.setBookedSeat(rs.getLong("booked_seats"));
+		showSearchRs.setCreatedby(rs.getLong("createdby"));
+		showSearchRs.setCreateddate(rs.getTimestamp("createddate"));
+			
+		return showSearchRs;
+		}
+
+}

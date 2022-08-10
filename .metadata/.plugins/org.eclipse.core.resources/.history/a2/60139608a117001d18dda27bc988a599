@@ -1,0 +1,68 @@
+package com.movie.portal.booking;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.movie.portal.constant.PaymentStatus;
+import com.movie.portal.entity.BookSeat;
+import com.movie.portal.entity.Booking;
+
+@Service
+public class BookingService {
+
+	
+	BookingRepository bookingRepository;
+
+	@Autowired
+	public void setBookingRepository(BookingRepository bookingRepository) {
+		this.bookingRepository = bookingRepository;
+	} 
+	
+	
+	public BookingConfirmationDTO reserverBooking (BookingDTO booking) {
+		
+		
+		/// make a call to theater system to reserver the seats and then insert 
+		// same info to portal db. 
+		
+		  
+		Booking bEntity = new Booking();
+		bEntity.setUid(booking.getUid());
+		bEntity.setShowid(booking.getShowId());
+		bEntity.setTotalSeat(booking.getSeats().size());
+		bEntity.setPaymentStatus(PaymentStatus.PENDING);
+		bEntity.setStatus(PaymentStatus.BLOCK);
+		bEntity  = bookingRepository.insertBooking(bEntity);
+		
+		for(int sid : booking.getSeats()) {
+			bookingRepository.saveSeat(new BookSeat(0,bEntity.getId(),sid));
+		}
+		
+		BookingConfirmationDTO confirmation = bookingRepository.getBookingConfirmation(bEntity.getShowid(),booking.getSeats());
+				
+		return confirmation;
+	}
+	
+public BookingConfirmationDTO confirmBooking (long bookingId) {
+		
+		
+		/// make a call to theater system to reserver the seats and then insert 
+		// same info to portal db. 
+		
+		  
+		Booking bEntity = bookingRepository.getBooking(bookingId);
+		bEntity.setPaymentStatus(PaymentStatus.SUCCESSFULL);
+		bEntity.setStatus(PaymentStatus.BOOKED);
+		bEntity  = bookingRepository.insertBooking(bEntity);
+		
+		for(int sid : booking.getSeats()) {
+			bookingRepository.saveSeat(new BookSeat(0,bEntity.getId(),sid));
+		}
+		
+		BookingConfirmationDTO confirmation = bookingRepository.getBookingConfirmation(bEntity.getShowid(),booking.getSeats());
+				
+		return confirmation;
+	}
+	
+	
+}

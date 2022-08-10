@@ -1,0 +1,21 @@
+package com.movie.portal.booking;
+
+public class BookingController {
+	
+	
+	/**
+	 * data needed
+	 * 
+	 *  partner id 
+	 *  show id 
+	 *  seats - 
+	 *  uid 
+	 *  rule engine implementation in last
+	 *  first take the booking. 
+	 * 
+	 */
+	
+	
+	
+
+}

@@ -1,0 +1,70 @@
+package com.movie.portal.booking;
+
+import java.sql.PreparedStatement;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
+
+import com.movie.portal.entity.Booking;
+
+@Repository
+public class BookingRepository {
+	
+	
+	
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
+	
+	public long insertBooking(Booking booking) {
+		        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+		        jdbcTemplate.update(connection -> {
+		            PreparedStatement ps = connection.prepareStatement(
+		            		"insert into booking(uid, show_id, total_seat,"
+		            		+ " total_amount, discount_id, total_discount,"
+		            		+ " payment_status, status) values(?,?,?,?,?,?,?,?)");
+		            ps.setLong(1, booking.getUid());
+		            ps.setLong(2, booking.getShowid());
+		            ps.setLong(3, booking.getTotalSeat());
+		            ps.setDouble(4, booking.getTotalAmount());
+		            ps.setLong(5, booking.getDiscountId());
+		            ps.setDouble(4, booking.getTotalDiscount());
+		            ps.setLong(6, booking.getPaymentStatus());
+		            ps.setLong(6, booking.getStatus());
+		            
+		            return ps;
+		        }, keyHolder);
+
+		        return (long) keyHolder.getKey();
+		    }
+	}
+
+public long updateBooking(Booking booking) {
+    KeyHolder keyHolder = new GeneratedKeyHolder();
+
+    jdbcTemplate.update(connection -> {
+        PreparedStatement ps = connection.prepareStatement(
+        		"insert into booking(uid, show_id, total_seat,"
+        		+ " total_amount, discount_id, total_discount,"
+        		+ " payment_status, status) values(?,?,?,?)");
+        ps.setInt(1, );
+        return ps;
+    }, keyHolder);
+
+    return (long) keyHolder.getKey();
+}
+}
+	
+	
+
+	
+	
+}

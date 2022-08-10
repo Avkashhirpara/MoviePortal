@@ -1,0 +1,19 @@
+package com.movie.portal.entity.mapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+import com.movie.portal.entity.MovieSearchDTO;
+import com.movie.portal.entity.Show;
+
+public class ShowSearchMapper implements RowMapper<ShowSearchDTO> {
+
+	@Override
+	public MovieSearchDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

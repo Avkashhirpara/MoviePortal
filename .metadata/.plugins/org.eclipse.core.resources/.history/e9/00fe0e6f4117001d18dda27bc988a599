@@ -1,0 +1,91 @@
+package com.movie.portal.booking;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import com.movie.portal.entity.Booking;
+
+@Repository
+public class BookingRepository {
+
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+	@Autowired
+	DataSource dataSource;
+
+	public Booking insertBooking(Booking booking) {
+
+		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("booking")
+				.usingGeneratedKeyColumns("id");
+
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("uid", booking.getUid());
+		parameters.put("show_id", booking.getShowid());
+		parameters.put("total_seat", booking.getTotalSeat());
+		parameters.put("total_amount", booking.getTotalAmount());
+		parameters.put("discount_id", booking.getDiscountId());
+		parameters.put("total_discount", booking.getTotalDiscount());
+		parameters.put("payment_status", booking.getPaymentStatus());
+		parameters.put("status", booking.getStatus());
+
+		Number id = simpleJdbcInsert.executeAndReturnKey(parameters);
+
+		return getBooking(id.intValue());
+	}
+
+	public Booking updateBooking(Booking booking) {
+
+		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("uid", booking.getUid())
+				.addValue("show_id", booking.getShowid()).addValue("total_seat", booking.getTotalSeat())
+				.addValue("total_amount", booking.getTotalAmount()).addValue("discount_id", booking.getDiscountId())
+				.addValue("total_discount", booking.getTotalDiscount())
+				.addValue("payment_status", booking.getPaymentStatus()).addValue("status", booking.getStatus())
+				.addValue("id", booking.getId());
+
+		String sql = "update booking set uid = :uid, show_id = :show_id, total_seat= :total_seat,"
+				+ " total_amount = :total_amount, discount_id = :discount_id, total_discount = :total_discount,"
+				+ " payment_status= :payment_status, status = :status where id = :id";
+
+		int id = namedParameterJdbcTemplate.update(sql, namedParameters);
+
+		return getBooking(booking.getId());;
+	}
+
+	public Booking getBooking(int bookingId) {
+
+		List<Booking> booking = null;
+		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", bookingId);
+		String sql = "	SELECT id, uid, show_id, total_seat, total_amount, discount_id, total_discount,"
+				+ " payment_status, status from booking where id = :id";
+
+		try {
+			booking = namedParameterJdbcTemplate.query(sql, namedParameters, (rs, num) -> {
+				return new Booking(rs.getLong("id"), rs.getLong("uid"), rs.getLong("show_id"), rs.getLong("total_seat"),
+						rs.getDouble("total_amount"), rs.getLong("discount_id"), rs.getDouble("total_discount"),
+						rs.getLong("payment_status"), rs.getLong("status"));
+			});
+
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return booking.get(0);
+
+	}
+
+}

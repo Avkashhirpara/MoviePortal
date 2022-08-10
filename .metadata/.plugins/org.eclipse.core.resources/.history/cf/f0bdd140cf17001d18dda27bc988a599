@@ -1,0 +1,10 @@
+global com.movie.portal.entity.Show show;
+dialect  "mvel"
+
+rule "Calculate discount on afternoon show"
+    when
+        taxiRideInstance:TaxiRide(isNightSurcharge == false && distanceInMile < 10);
+    then
+      	rideFare.setNightSurcharge(0);
+       	rideFare.setRideFare(70);
+end
